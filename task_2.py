@@ -10,42 +10,35 @@
 Поработайте с доработанной структурой, позапускайте на реальных данных.
 """
 
+
 class BinaryTree:
     def __init__(self, root_obj):
-        # корень
         self.root = root_obj
-        # левый потомок
         self.left_child = None
-        # правый потомок
         self.right_child = None
 
     # добавить левого потомка
+
     def insert_left(self, new_node):
-        # если у узла нет левого потомка
-        if self.left_child == None:
-            # тогда узел просто вставляется в дерево
-            # формируется новое поддерево
+        if new_node > self.root:
+            self.right_child(new_node)
+            # return "Данный элемент больше корня! Он автоматически пойдет в правую часть!"
+        elif self.left_child == None:
             self.left_child = BinaryTree(new_node)
-        # если у узла есть левый потомок
         else:
-            # тогда вставляем новый узел
             tree_obj = BinaryTree(new_node)
-            # и спускаем имеющегося потомка на один уровень ниже
             tree_obj.left_child = self.left_child
             self.left_child = tree_obj
 
     # добавить правого потомка
     def insert_right(self, new_node):
-        # если у узла нет правого потомка
-        if self.right_child == None:
-            # тогда узел просто вставляется в дерево
-            # формируется новое поддерево
+        if new_node < self.root:
+            self.left_child(new_node)
+            # return "Данный элемент меньше корня! Он автоматически пойдет в левую часть!"
+        elif self.right_child == None:
             self.right_child = BinaryTree(new_node)
-        # если у узла есть правый потомок
         else:
-            # тогда вставляем новый узел
             tree_obj = BinaryTree(new_node)
-            # и спускаем имеющегося потомка на один уровень ниже
             tree_obj.right_child = self.right_child
             self.right_child = tree_obj
 
@@ -66,14 +59,16 @@ class BinaryTree:
         return self.root
 
 
-r = BinaryTree(8)
+r = BinaryTree(16)
 print(r.get_root_val())
 print(r.get_left_child())
+r.insert_left(8)
 r.insert_left(4)
 print(r.get_left_child())
 print(r.get_left_child().get_root_val())
-r.insert_right(12)
-print(r.get_right_child())
-print(r.get_right_child().get_root_val())
-r.get_right_child().set_root_val(16)
-print(r.get_right_child().get_root_val())
+# r.insert_right(18)
+# r.insert_left(22)
+# print(r.get_right_child())
+# print(r.get_right_child().get_root_val())
+# r.get_right_child().set_root_val(16)
+# print(r.get_right_child().get_root_val())
