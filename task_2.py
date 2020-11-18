@@ -20,27 +20,40 @@ class BinaryTree:
     # добавить левого потомка
 
     def insert_left(self, new_node):
-        if new_node > self.root:
-            self.right_child(new_node)
-            # return "Данный элемент больше корня! Он автоматически пойдет в правую часть!"
-        elif self.left_child == None:
-            self.left_child = BinaryTree(new_node)
+        if self.root >= new_node:
+            if self.left_child is None:
+                self.left_child = BinaryTree(new_node)
+            else:
+                tree_obj = BinaryTree(new_node)
+                tree_obj.left_child = self.left_child
+                self.left_child = tree_obj
         else:
-            tree_obj = BinaryTree(new_node)
-            tree_obj.left_child = self.left_child
-            self.left_child = tree_obj
+            print("Данный элемент больше корня! Он автоматически пойдет в правую часть!")
+            if self.right_child is None:
+                self.right_child = BinaryTree(new_node)
+            else:
+                tree_obj = BinaryTree(new_node)
+                tree_obj.right_child = self.right_child
+                self.right_child = tree_obj
+        # return
 
     # добавить правого потомка
     def insert_right(self, new_node):
-        if new_node < self.root:
-            self.left_child(new_node)
-            # return "Данный элемент меньше корня! Он автоматически пойдет в левую часть!"
-        elif self.right_child == None:
-            self.right_child = BinaryTree(new_node)
+        if self.root <= new_node:
+            if self.right_child is None:
+                self.right_child = BinaryTree(new_node)
+            else:
+                tree_obj = BinaryTree(new_node)
+                tree_obj.right_child = self.right_child
+                self.right_child = tree_obj
         else:
-            tree_obj = BinaryTree(new_node)
-            tree_obj.right_child = self.right_child
-            self.right_child = tree_obj
+            print("Данный элемент меньше корня! Он автоматически пойдет в левую часть!")
+            if self.left_child is None:
+                self.left_child = BinaryTree(new_node)
+            else:
+                tree_obj = BinaryTree(new_node)
+                tree_obj.left_child = self.left_child
+                self.left_child = tree_obj
 
     # метод доступа к правому потомку
     def get_right_child(self):
@@ -59,16 +72,18 @@ class BinaryTree:
         return self.root
 
 
-r = BinaryTree(16)
+r = BinaryTree(8)
 print(r.get_root_val())
 print(r.get_left_child())
-r.insert_left(8)
-r.insert_left(4)
-print(r.get_left_child())
+r.insert_left(7)
 print(r.get_left_child().get_root_val())
-# r.insert_right(18)
-# r.insert_left(22)
+r.insert_left(9)
+print(r.get_right_child().get_root_val())
+# print(r.get_left_child())
+r.insert_right(10)
+print(r.get_right_child().get_root_val())
+r.insert_right(6)
 # print(r.get_right_child())
-# print(r.get_right_child().get_root_val())
+print(r.get_left_child().get_root_val())
 # r.get_right_child().set_root_val(16)
 # print(r.get_right_child().get_root_val())
